@@ -4,7 +4,7 @@
     $eventID = $_GET['eventID'];
 
     $ID = $_SESSION['ID'];
-
+    $eventIDJoin = 0;
     $sql = "SELECT * from joinedevent where userID='$ID' and eventID='$eventID'";
     $result = mysqli_query($con,$sql);
     

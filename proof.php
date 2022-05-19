@@ -182,7 +182,7 @@ if (mysqli_num_rows($result)>0){
             <div class="nav-menu">
 
                 <ul>
-                    <li class="active"><a href="#"><span class="icon-home mr-3"></span>Home</a></li>
+                    <li><a href="home.php"><span class="icon-home mr-3"></span>Home</a></li>
                     <li><a href="profile.php"><span class="icon-person mr-3"></span>Profile</a></li>
                     <li><a href="myEvent.php"><span class="icon-calendar mr-3"></span>My Event</a></li>
                     <?php
