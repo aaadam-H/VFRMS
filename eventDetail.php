@@ -18,6 +18,7 @@ if (mysqli_num_rows($result) > 0) {
         $feeEarly = $row['earlyFee'];
         $eventRegSDate = $row['registerStartDate'];
         $eventRegEDate = $row['registerEndDate'];
+        $contactNumEvent = $row['contactNumEvent'];
     }
 }
 
@@ -205,6 +206,10 @@ if (mysqli_num_rows($result1) > 0) {
                             <div class="col-md-4"><strong>Early Bird Fee: </strong></div>
                             <div class="col-md-8">RM<?php echo $feeEarly ?></div>
                         </div>
+                        <div class="row mt-2">
+                            <div class="col-md-4"><strong>Contact Number: </strong></div>
+                            <div class="col-md-8"><?php echo $contactNumEvent ?></div>
+                        </div>
 
                     </div>
                 </div>
@@ -214,7 +219,7 @@ if (mysqli_num_rows($result1) > 0) {
                             <?php
                             if ($accType == 'user') {
                             ?>
-                                <button type="" class="btn btn-success mt-3"><a href="registerEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>REGISTER</a></button>
+                                <button type="" class="btn btn-success mt-3"><a onClick="javascript: return confirm('Are you sure to register for event <?php echo $eventName ?>');" href="registerEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>REGISTER</a></button>
                             <?php
                             }
                             ?>

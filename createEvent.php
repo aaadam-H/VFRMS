@@ -14,6 +14,7 @@ if (isset($_POST['submit'])) {
     $regEDate = $_POST['eventRegEDate'];
     $fee = $_POST['fee'];
     $earlyFee = $_POST['earlyFee'];
+    $contactNumEvent = $_POST['contactNumEvent'];
     $accType = $_SESSION['accType'];
     $ID = $_SESSION['ID'];
 
@@ -24,8 +25,8 @@ if (isset($_POST['submit'])) {
     if (!$filename) {
         echo "<script>alert('PLEASE UPLOAD PICTURE!')</script>";
     } else {
-        $sql = "INSERT INTO event (orgID,eventName, eventStartDate, EventEndDate, eventDesc, eventImg, status, registerStartDate, registerEndDate,fee,earlyFee) 
-        VALUES ('$ID','$eventName','$eventSDate','$eventEDate','$desc','$eventImg','ongoing','$regSDate','$regEDate','$fee','$earlyFee')";
+        $sql = "INSERT INTO event (orgID,eventName, eventStartDate, EventEndDate, eventDesc, eventImg, status, registerStartDate, registerEndDate,fee,earlyFee,contactNumEvent) 
+        VALUES ('$ID','$eventName','$eventSDate','$eventEDate','$desc','$eventImg','ongoing','$regSDate','$regEDate','$fee','$earlyFee','$contactNumEvent')";
         $result = mysqli_query($con, $sql);
         if ($result) {
             if (move_uploaded_file($tempname, $eventImg)) {
@@ -211,8 +212,12 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-10"><input type="text" class="form-control" placeholder="RM .." value="<?php echo $_POST['fee']; ?>" name="fee" required></div>
                                 </div>
                                 <div class="row mt-3">
-                                    <div class="col-md-2"><label for="fee">Early Bird Fee: </label></div>
+                                    <div class="col-md-2"><label for="earlyFee">Early Bird Fee: </label></div>
                                     <div class="col-md-10"><input type="text" class="form-control" placeholder="RM ..(Same as Fee if none)" value="<?php echo $_POST['earlyFee']; ?>" name="earlyFee" required></div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-2"><label for="contactNumEvent">Contact Number: </label></div>
+                                    <div class="col-md-10"><input type="tel" class="form-control" placeholder="Phone Number" value="<?php echo $_POST['contactNumEvent']; ?>" name="contactNumEvent" required></div>
                                 </div>
                                 
                                 <div class="row mt-3 text-left">

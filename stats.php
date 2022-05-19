@@ -90,7 +90,7 @@ include('connection.php');
                 ['2022', 75]
             ]);
             var options1 = {
-                title: 'Total Fee per Year',
+                title: 'Total Fee per Year (Estimation)',
                 curveType: 'linear',
                 legend: {
                     position: 'bottom'

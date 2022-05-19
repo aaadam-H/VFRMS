@@ -73,50 +73,6 @@ $accType = $_SESSION['accType'];
         }
     </style>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        google.charts.load('current', {
-            'packages': ['corechart', 'bar']
-        });
-        google.charts.setOnLoadCallback(drawChart);
-
-        function drawChart() {
-
-
-            var data1 = google.visualization.arrayToDataTable([
-                ['Year', 'Total Fee'],
-                ['2018', 110],
-                ['2019', 20],
-                ['2020', 22],
-                ['2021', 200],
-                ['2022', 75]
-            ]);
-            var options1 = {
-                title: 'Total Fee per Year',
-                curveType: 'linear',
-                legend: {
-                    position: 'bottom'
-                }
-            };
-            var chart1 = new google.visualization.LineChart(document.getElementById('curve_chart1'));
-            chart1.draw(data1, options1);
-
-
-            var data2 = google.visualization.arrayToDataTable([
-                ['Year', 'Event'],
-                ['2014', 2],
-                ['2015', 3],
-                ['2016', 1],
-                ['2017', 7]
-            ]);
-            var options2 = {
-                chart: {
-                    title: 'Events Per Year',
-                }
-            };
-            var chart2 = new google.charts.Bar(document.getElementById('columnchart_material'));
-            chart2.draw(data2, google.charts.Bar.convertOptions(options2));
-        }
-    </script>
 
     <title>My Event - VFRMS</title>
     
@@ -254,7 +210,7 @@ $accType = $_SESSION['accType'];
                                     } else { //org
                                         ?>
                                         <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="viewParticipant.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>View Participant</a></button</td>
-                                        <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button>
+                                        <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
                                         
                                     <?php
                                     }
@@ -272,7 +228,7 @@ $accType = $_SESSION['accType'];
                     }
                 } else {
                     ?>
-                    <tr><td colspan='7'>0 results</td></tr>
+                    <tr><td colspan='7' class="text-center">0 results</td></tr>
                     <?php
                 }
                 ?>

@@ -20,6 +20,7 @@ if(mysqli_num_rows($result)>0){
         $feeEarly = $row['earlyFee'];
         $eventRegSDate = $row['registerStartDate'];
         $eventRegEDate = $row['registerEndDate'];
+        
     }
 }
 

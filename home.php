@@ -165,7 +165,7 @@ if(!$_SESSION['ID']){
             </div>
           </div>
           <?php
-          $query = "SELECT * FROM event where status='ongoing' AND NOT eventID=$eventID0 LIMIT 2";
+          $query = "SELECT * FROM event where status='ongoing' AND NOT eventID=$eventID0 ORDER BY RAND() LIMIT 2";
           $result1 = mysqli_query($con, $query);
 
           if (mysqli_num_rows($result1) > 0) {

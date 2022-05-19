@@ -85,7 +85,7 @@ if (isset($_POST['upload'])) {
 if (isset($_POST['delete'])) {
     $accType = $_SESSION['accType'];
     $ID = $_SESSION['ID'];
-
+    
     if ($accType == 'organizer') {
         $sql = "UPDATE organizer SET profilePic = 'imageWeb/default.png' WHERE orgID='$ID'";
     } else if ($accType == 'user') {
@@ -226,7 +226,7 @@ if (isset($_POST['delete'])) {
                             
                             <div class=" align-items-center text-center p-3 py-5">
                                 <button type="submit" name="upload" class="btn btn-primary profile-button">UPLOAD</button>
-                                <button type="submit" name="delete" class="btn btn-danger profile-button" title="DELETE CURRENT PROFILE PIC/RESET TO DEFAULT">DELETE</button>
+                                <button type="submit" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" name="delete" class="btn btn-danger profile-button" title="DELETE CURRENT PROFILE PIC/RESET TO DEFAULT">DELETE</button>
                             </div>
 
                         </form>
