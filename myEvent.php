@@ -152,6 +152,7 @@ $accType = $_SESSION['accType'];
                         <th class="">Status</th>
                         <th class=" border-0"></th>
                         <th class=" border-0"></th>
+                        <th class=" border-0"></th>
 
                     </tr>
                 </thead>
@@ -186,22 +187,24 @@ $accType = $_SESSION['accType'];
                                 
                                 <td class=""><?php echo $eventSDate ?></td>
                                 <td class=""><?php echo $eventEDate ?></td>
-                                <td class=""><?php echo $status ?></td>
+                                <td class=""><strong><?php echo $status ?></strong> </td>
 
                             
                                 
                                     <?php
                                     if ($accType=='user'){
                                         ?>
-                                        <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="eventDetail.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>CHECK</a></button</td>
+                                        <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="eventDetail.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='Check Event Detail'>CHECK</a></button</td>
                                         <?php
                                         if ($status=='ongoing'){
                                             ?>
-                                            <td class="border-0"><button type="" class="btn btn-success"><a class='btn' href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'> PROOF</a></button>
+                                            <td class="border-0"><button type="" class="btn btn-danger"><a class='btn' href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="DEREGISTER"> DEREGISTER</a></button>
+                                            <td class="border-0"><button type="" class="btn btn-success"><a class='btn' href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="Manage Event Proof"> PROOF</a></button>
                                             <?php
                                         } else {
                                             ?>
-                                            <td class="border-0"><button type="" class="btn btn-success" disabled><a class="btn disabled" href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>PROOF</a></button>
+                                            <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='DEREGISTER'>DEREGISTER</a></button>
+                                            <td class="border-0"><button type="" class="btn btn-success" disabled><a class="btn disabled" href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='Manage event proof'>PROOF</a></button>
                                             <?php
                                         }
                                         ?>
