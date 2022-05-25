@@ -19,6 +19,9 @@ if (mysqli_num_rows($result) > 0) {
         $eventRegSDate = $row['registerStartDate'];
         $eventRegEDate = $row['registerEndDate'];
         $contactNumEvent = $row['contactNumEvent'];
+        $bankName = $row['bankName'];
+        $accNumber = $row['accNumber'];
+        $feeEarlyQt = $row['earlyFeeQt'];
     }
 }
 
@@ -158,7 +161,7 @@ if (mysqli_num_rows($result1) > 0) {
 
         <div class="site-section">
             <div class="container rounded bg-black mt-5 pb-5">
-               
+
                 <div class="row">
                     <div class="col-lg-6" style="float: none; margin:auto;">
                         <div class="d-flex flex-column align-items-center text-center p-3 py-3"><img class="rounded mt-5" src="<?php echo $eventImg ?>" width="320"></div>
@@ -203,10 +206,37 @@ if (mysqli_num_rows($result1) > 0) {
                             <div class="col-md-8">RM<?php echo $fee ?></div>
                         </div>
                         <div class="row mt-2">
-                            <div class="col-md-4"><strong>Early Bird Fee: </strong></div>
-                            <div class="col-md-8">RM<?php echo $feeEarly ?></div>
+                            <?php
+                            if($totalParticipant<$feeEarlyQt){
+                                ?>
+                                <div class="col-md-4"><strong>Early Bird Fee (For first <?php echo $feeEarlyQt ?> only): </strong></div>
+                                <?php
+                            } else {
+                                ?>
+                                <div class="col-md-4"><s><strong>Early Bird Fee (For first <?php echo $feeEarlyQt ?> only): </strong></s></div>
+                                <?php
+                            }
+                            ?>
+                            
+                            <div class="col-md-8">
+                                <?php 
+                                if($totalParticipant<$feeEarlyQt){
+                                   echo "RM". $feeEarly;
+                                } else {
+                                    echo "<strike>RM ". $feeEarly."</strike>";
+                                }
+                                ?>
+                                
+                            </div>
                         </div>
-                        
+                        <div class="row mt-3">
+                            <div class="col-md-4"><strong>Bank Name: </strong></div>
+                            <div class="col-md-8"><?php echo $bankName ?></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-4"><strong>Account Number: </strong></div>
+                            <div class="col-md-8"><?php echo $accNumber ?></div>
+                        </div>
                         <div class="row mt-2">
                             <div class="col-md-4"><strong>Contact Number: </strong></div>
                             <div class="col-md-8"><?php echo $contactNumEvent ?></div>

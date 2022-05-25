@@ -17,6 +17,7 @@ if (isset($_POST['submit'])) {
     $contactNumEvent = $_POST['contactNumEvent'];
     $accNumber = $_POST['accNumber'];
     $accBankName = $_POST['accBankName'];
+    $earlyFeeQt = $_POST['earlyFeeQt'];
 
     $accType = $_SESSION['accType'];
     $ID = $_SESSION['ID'];
@@ -28,7 +29,7 @@ if (isset($_POST['submit'])) {
     if (!$filename) {
         echo "<script>alert('PLEASE UPLOAD PICTURE!')</script>";
     } else {
-        $sql = "INSERT INTO event (orgID,eventName, eventStartDate, EventEndDate, eventDesc, eventImg, status, registerStartDate, registerEndDate,fee,earlyFee,contactNumEvent,bankName,accNumber) VALUES ('$ID','$eventName','$eventSDate','$eventEDate','$desc','$eventImg','ongoing','$regSDate','$regEDate','$fee','$earlyFee','$contactNumEvent','$accBankName','$accNumber')";
+        $sql = "INSERT INTO event (orgID,eventName, eventStartDate, EventEndDate, eventDesc, eventImg, status, registerStartDate, registerEndDate,fee,earlyFee,contactNumEvent,bankName,accNumber,earlyFeeQt) VALUES ('$ID','$eventName','$eventSDate','$eventEDate','$desc','$eventImg','ongoing','$regSDate','$regEDate','$fee','$earlyFee','$contactNumEvent','$accBankName','$accNumber','$earlyFeeQt')";
         $result = mysqli_query($con, $sql);
         if ($result) {
             if (move_uploaded_file($tempname, $eventImg)) {
@@ -219,6 +220,10 @@ if (isset($_POST['submit'])) {
                                 <div class="row mt-3">
                                     <div class="col-md-2"><label for="earlyFee">Early Bird Fee: </label></div>
                                     <div class="col-md-10"><input type="text" class="form-control" placeholder="RM ..(Same as Fee if none)" value="<?php echo $_POST['earlyFee']; ?>" name="earlyFee" required></div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-2"><label for="earlyFeeQt">Early Bird Capacity: </label></div>
+                                    <div class="col-md-10"><input type="number" class="form-control" placeholder="50" value="<?php echo $_POST['earlyFeeQt']; ?>" name="earlyFee" required></div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-2"><label for="accBankName">Bank Name: </label></div>

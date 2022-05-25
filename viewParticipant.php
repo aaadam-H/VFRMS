@@ -218,12 +218,12 @@ if (mysqli_num_rows($result) > 0) {
             ?>
                 <tbody class="justify-content-center">
                   <tr class="table-body-row">
-                    <td class="pb-2" style="text-align: center;"><img src="<?php echo $proof ?>" alt="" width="160" height="90" style="object-fit: contain; "></td>
+                    <td class="pb-2" style="text-align: center;"><a href="viewProof.php?userID=<?php echo $userID ?>&eventID=<?php echo $eventID ?>" target="_blank"><img src="<?php echo $proof ?>" alt="" width="160" height="90" style="object-fit: contain; "></a></td>
                     <td class=""><?php echo $pName ?></td>
                     <td class=""><?php echo $date ?></td>
 
                     <td class="border-0 d-flex justify-content-around">
-                      <button type="" class="btn btn-info " title="View participant's proof"><a class="btn" href="viewProof.php?userID=<?php echo $userID ?>&eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' target="_blank">View</a></button>
+                      <button type="" class="btn btn-info " title="View participant's registration proof"><a class="btn" href="viewProofReg.php?userID=<?php echo $userID ?>&eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' target="_blank">View</a></button>
                       <button type="" class="btn btn-danger " title="Delete participant's proof"><a class="btn" href="deleteProof.php?userID=<?php echo $userID ?>&eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Delete</a></button>
                     </td>
 
@@ -237,7 +237,7 @@ if (mysqli_num_rows($result) > 0) {
 
               }
             } else {
-              echo "<tr><td colspan='4' class='text-center'>0 results</td></tr>";
+              echo "<tr'><td colspan='4' class='text-center'>0 results</td></tr>";
             }
             ?>
 
