@@ -70,7 +70,7 @@ if (isset($_POST['upload'])) {
         // Execute query
         mysqli_query($con, $sql);
         $_SESSION['profilePicDir'] = $folder;
-        // Now let's move the uploaded image into the folder: image
+        // Now let's move the uploaded image into the folder: imageWeb
         if (move_uploaded_file($tempname, $folder)) {
             $msg = "Image changed successfully";
             echo "<script>alert('$msg')</script>";
