@@ -198,12 +198,12 @@ $accType = $_SESSION['accType'];
                                         <?php
                                         if ($status=='ongoing'){
                                             ?>
-                                            <td class="border-0"><button type="" class="btn btn-danger"><a class='btn' href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="DEREGISTER"> DEREGISTER</a></button>
+                                            <td class="border-0"><button type="" class="btn btn-danger"><a class='btn' onClick="javascript: return confirm('Are you sure to deregister event <?php echo $eventName ?>');" href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="DEREGISTER"> DEREGISTER</a></button>
                                             <td class="border-0"><button type="" class="btn btn-success"><a class='btn' href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="Manage Event Proof"> PROOF</a></button>
                                             <?php
                                         } else {
                                             ?>
-                                            <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='DEREGISTER'>DEREGISTER</a></button>
+                                            <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" onClick="javascript: return confirm('Are you sure to deregister event <?php echo $eventName ?>');" href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='DEREGISTER'>DEREGISTER</a></button>
                                             <td class="border-0"><button type="" class="btn btn-success" disabled><a class="btn disabled" href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='Manage event proof'>PROOF</a></button>
                                             <?php
                                         }
@@ -213,7 +213,18 @@ $accType = $_SESSION['accType'];
                                     } else { //org
                                         ?>
                                         <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="viewParticipant.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>View Participant</a></button</td>
-                                        <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+                                        <?php
+                                        if($status=='completed'){ //disabled
+                                            ?>
+                                            <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+                                            <?php
+                                        } else{
+                                            ?>
+                                            <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+                                            <?php
+                                        }
+                                        ?>
+                                        
                                         
                                     <?php
                                     }

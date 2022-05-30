@@ -167,7 +167,18 @@ if (mysqli_num_rows($result) > 0) {
               <tr>
 
                 <td>
-                  <button type="submit" name="endEvent" class="btn btn-danger" title="End the Event"><a onClick="javascript: return confirm('Are you sure to end event <?php echo $eventNameOG ?>');" class="btn" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $eventStatus ?>" style="text-decoration:none; color:black;">END EVENT</a></button>
+                  <?php
+                  if($eventStatus=='ongoing'){
+                    ?>
+                    <button type="submit" name="endEvent" class="btn btn-danger" title="End the Event"><a onClick="javascript: return confirm('Are you sure to end event <?php echo $eventNameOG ?>');" class="btn" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $eventStatus ?>" style="text-decoration:none; color:black;">END EVENT</a></button>
+                    <?php
+                  } else {
+                    ?>
+                    <button type="submit" name="endEvent" class="btn btn-danger" title="End the Event" disabled><a onClick="javascript: return confirm('Are you sure to end event <?php echo $eventNameOG ?>');" class="btn disabled" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $eventStatus ?>" style="text-decoration:none; color:black;">END EVENT</a></button>
+                    <?php
+                  }
+                  ?>
+                  
                 </td>
               </tr>
 
@@ -189,7 +200,7 @@ if (mysqli_num_rows($result) > 0) {
                 <th style="text-align:center;">Proof</th>
                 <th class="">Participant Name</th>
                 <th class="">Date</th>
-                <th class=""></th>
+                <th class="text-align-center" colspan="2">Registration Proof</th>
 
 
 

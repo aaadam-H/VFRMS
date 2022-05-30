@@ -83,140 +83,323 @@ include('connection.php');
 
         function drawChart() {
 
+            //total event per year
             <?php
-            $data18['totalFee'] = 0;
-            $data19['totalFee'] = 0;
-            $data20['totalFee'] = 0;
-            $data21['totalFee'] = 0;
-            $data2['totalFee'] = 0;
-            if ($accType == 'organizer') {
-                $sqlfee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2022 and orgID='$ID'";
-                $sql1fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2021 and orgID='$ID'";
-                $sql2fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2020 and orgID='$ID'";
-                $sql3fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2019 and orgID='$ID'";
-                $sql4fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2018 and orgID='$ID'";
-            } else { //user
-                $sqlfee =  "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2022";
-                $sql1fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2021";
-                $sql2fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2020";
-                $sql3fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2019";
-                $sql4fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2018";
-            }
-
-            $resultfee = mysqli_query($con, $sqlfee);
-            $result1fee = mysqli_query($con, $sql1fee);
-            $result2fee = mysqli_query($con, $sql2fee);
-            $result3fee = mysqli_query($con, $sql3fee);
-            $result4fee = mysqli_query($con, $sql4fee);
-            $data18 = mysqli_fetch_assoc($result4fee);
-            $data19 = mysqli_fetch_assoc($result3fee);
-            $data20 = mysqli_fetch_assoc($result2fee);
-            $data21 = mysqli_fetch_assoc($result1fee);
-            $data22 = mysqli_fetch_assoc($resultfee);
-            if ($resultfee && $result1fee && $result2fee && $result3fee && $result4fee) {
-                if ($data18['totalFee'] == null) {
-                    $data18['totalFee'] = 0;
-                } else {
-                    $data18['totalFee'] = $data18['totalFee'];
-                }
-                if ($data19['totalFee'] == null) {
-                    $data19['totalFee'] = 0;
-                } else {
-                    $data19['totalFee'] = $data19['totalFee'];
-                }
-                if ($data20['totalFee'] == null) {
-                    $data20['totalFee'] = 0;
-                } else {
-                    $data20['totalFee'] = $data20['totalFee'];
-                }
-                if ($data21['totalFee'] == null) {
-                    $data21['totalFee'] = 0;
-                } else {
-                    $data21['totalFee'] = $data21['totalFee'];
-                }
-                if ($data22['totalFee'] == null) {
-                    $data22['totalFee'] = 0;
-                } else {
-                    $data22['totalFee'] = $data22['totalFee'];
-                }
-                $fee18 = $data18['totalFee'];
-                $fee19 = $data19['totalFee'];
-                $fee20 = $data20['totalFee'];
-                $fee21 = $data21['totalFee'];
-                $fee22 = $data22['totalFee'];
-            }
-            ?>
-
-            var data1 = google.visualization.arrayToDataTable([
-                ['Year', 'Total Fee'],
-                ['2018', <?php echo $fee18 ?>],
-                ['2019', <?php echo $fee19 ?>],
-                ['2020', <?php echo $fee20 ?>],
-                ['2021', <?php echo $fee21 ?>],
-                ['2022', <?php echo $fee22 ?>]
-            ]);
-            var options1 = {
-                title: 'Total Fee per Year (Estimation)',
-                curveType: 'linear',
-                legend: {
-                    position: 'bottom'
-                }
-            };
-            var chart1 = new google.visualization.LineChart(document.getElementById('curve_chart1'));
-            chart1.draw(data1, options1);
-
-
-            //data 2
-            <?php
-            if ($accType == 'organizer') {
+            if($accType=='organizer'){
                 $sql = "SELECT count(*) as total from event where YEAR(eventStartDate)=2022 and orgID='$ID'";
                 $sql1 = "SELECT count(*) as total from event where YEAR(eventStartDate)=2021 and orgID='$ID'";
                 $sql2 = "SELECT count(*) as total from event where YEAR(eventStartDate)=2020 and orgID='$ID'";
                 $sql3 = "SELECT count(*) as total from event where YEAR(eventStartDate)=2019 and orgID='$ID'";
                 $sql4 = "SELECT count(*) as total from event where YEAR(eventStartDate)=2018 and orgID='$ID'";
-            } else { //user
+                $result = mysqli_query($con, $sql);
+                $result1 = mysqli_query($con, $sql1);
+                $result2 = mysqli_query($con, $sql2);
+                $result3 = mysqli_query($con, $sql3);
+                $result4 = mysqli_query($con, $sql4);
+                $data18 = mysqli_fetch_assoc($result4);
+                $data19 = mysqli_fetch_assoc($result3);
+                $data20 = mysqli_fetch_assoc($result2);
+                $data21 = mysqli_fetch_assoc($result1);
+                $data22 = mysqli_fetch_assoc($result);
+                if ($result && $result1 && $result2 && $result3 && $result4) {
+                    $event18 = $data18['total'];
+                    $event19 = $data19['total'];
+                    $event20 = $data20['total'];
+                    $event21 = $data21['total'];
+                    $event22 = $data22['total'];
+                }
+            
+                //total fee per yr
+                $sqlfee =  "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2022 and orgID='$ID'";
+                $sql1fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2021 and orgID='$ID'";
+                $sql2fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2020 and orgID='$ID'";
+                $sql3fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2019 and orgID='$ID'";
+                $sql4fee = "SELECT sum(fee) as totalFee from event where YEAR(eventStartDate)=2018 and orgID='$ID'";
+            
+
+                $resultfee = mysqli_query($con, $sqlfee);
+                $result1fee = mysqli_query($con, $sql1fee);
+                $result2fee = mysqli_query($con, $sql2fee);
+                $result3fee = mysqli_query($con, $sql3fee);
+                $result4fee = mysqli_query($con, $sql4fee);
+                $data18 = mysqli_fetch_assoc($result4fee);
+                $data19 = mysqli_fetch_assoc($result3fee);
+                $data20 = mysqli_fetch_assoc($result2fee);
+                $data21 = mysqli_fetch_assoc($result1fee);
+                $data22 = mysqli_fetch_assoc($resultfee);
+                if ($resultfee && $result1fee && $result2fee && $result3fee && $result4fee) {
+                    if ($data18['totalFee'] == null) {
+                        $data18['totalFee'] = 0;
+                    } else {
+                        $data18['totalFee'] = $data18['totalFee'];
+                    }
+                    if ($data19['totalFee'] == null) {
+                        $data19['totalFee'] = 0;
+                    } else {
+                        $data19['totalFee'] = $data19['totalFee'];
+                    }
+                    if ($data20['totalFee'] == null) {
+                        $data20['totalFee'] = 0;
+                    } else {
+                        $data20['totalFee'] = $data20['totalFee'];
+                    }
+                    if ($data21['totalFee'] == null) {
+                        $data21['totalFee'] = 0;
+                    } else {
+                        $data21['totalFee'] = $data21['totalFee'];
+                    }
+                    if ($data22['totalFee'] == null) {
+                        $data22['totalFee'] = 0;
+                    } else {
+                        $data22['totalFee'] = $data22['totalFee'];
+                    }
+
+                    
+                    $fee18 = $data18['totalFee'];
+                    $fee19 = $data19['totalFee'];
+                    $fee20 = $data20['totalFee'];
+                    $fee21 = $data21['totalFee'];
+                    $fee22 = $data22['totalFee'];
+
+                    //profit
+                    $income18['totalIncome'] = 0;
+                    $income19['totalIncome'] = 0;
+                    $income20['totalIncome'] = 0;
+                    $income21['totalIncome'] = 0;
+                    $income22['totalIncome'] = 0;
+                    
+                    $sqlIncome = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2022 AND e.orgID='$ID'";
+                    $sql1Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2021 AND e.orgID='$ID'";
+                    $sql2Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2020 AND e.orgID='$ID'";
+                    $sql3Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2019 AND e.orgID='$ID'";
+                    $sql4Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2018 AND e.orgID='$ID'";
+                    
+
+                    $resultIncome = mysqli_query($con, $sqlIncome);
+                    $result1Income = mysqli_query($con, $sql1Income);
+                    $result2Income = mysqli_query($con, $sql2Income);
+                    $result3Income = mysqli_query($con, $sql3Income);
+                    $result4Income = mysqli_query($con, $sql4Income);
+                    $income18 = mysqli_fetch_assoc($result4Income);
+                    //$income18 = $income18 * $fee18;
+                    $income19 = mysqli_fetch_assoc($result3Income);
+                    //$income19 = $income19 * $fee19;
+                    $income20 = mysqli_fetch_assoc($result2Income);
+                    //$income20 = $income20 * $fee20;
+                    $income21 = mysqli_fetch_assoc($result1Income);
+                    //$income21 = $income21 * $fee21;
+                    $income22 = mysqli_fetch_assoc($resultIncome);
+                    //$income22 = $income22 * $fee22;
+                    if ($resultIncome && $result1Income && $result2Income && $result3Income && $result4Income) {
+                        if ($income18['totalPartcipant'] == null) {
+                            $income18['totalPartcipant'] = 0;
+                            $totalPart18 = 0;
+                        } else {
+                            $totalPart18 = $income18['totalPartcipant'];
+                            $income18['totalPartcipant'] = $income18['totalPartcipant'] * $fee18;
+                        }
+
+                        if ($income19['totalPartcipant'] == null) {
+                            $income19['totalPartcipant'] = 0;
+                            $totalPart19 = 0;
+                        } else {
+                            $totalPart19 = $income19['totalPartcipant'];
+                            $income19['totalPartcipant'] = $income19['totalPartcipant'] * $fee19;
+                        }
+
+                        if ($income20['totalPartcipant'] == null) {
+                            $income20['totalPartcipant'] = 0;
+                            $totalPart20 = 0;
+                        } else {
+                            $totalPart20 = $income20['totalPartcipant'];
+                            $income20['totalPartcipant'] = $income20['totalPartcipant'] * $fee20;
+                        }
+
+                        if ($income21['totalPartcipant'] == null) {
+                            $income21['totalPartcipant'] = 0;
+                            $totalPart21 = $income21['totalParticipant'];
+                        } else {
+                            $totalpart21 = $income21['totalPartcipant'] ;
+                            $income21['totalPartcipant'] = $income21['totalPartcipant'] * $fee21;
+                        }
+
+                        if ($income22['totalPartcipant'] == null) {
+                            $income22['totalPartcipant'] = 0;
+                            $totalPart22 = 0; 
+                        } else {
+                            $totalPart22 = $income22['totalPartcipant'] ;
+                            $income22['totalPartcipant'] = $income22['totalPartcipant'] * $fee22;
+                        }
+
+                        $income18 = $income18['totalPartcipant'];
+                        $income19 = $income19['totalPartcipant'];
+                        $income20 = $income20['totalPartcipant'];
+                        $income21 = $income21['totalPartcipant'];
+                        $income22 = $income22['totalPartcipant'];
+                    }
+                }
+                ?>
+
+                var data0 = google.visualization.arrayToDataTable([
+                    ['Year', 'Total Event', 'Total Participant', 'Profit'],
+                    ['2018', <?php echo $event18 ?>, <?php echo $totalPart18 ?>, <?php echo $income18 ?>],
+                    ['2019', <?php echo $event19 ?>, <?php echo $totalPart19 ?>, <?php echo $income19 ?>],
+                    ['2020', <?php echo $event20 ?>, <?php echo $totalPart20 ?>, <?php echo $income20 ?>],
+                    ['2021', <?php echo $event21 ?>, <?php echo $fee21 ?>, <?php echo $income21 ?>],
+                    ['2022', <?php echo $event22 ?>, <?php echo $totalPart22 ?>, <?php echo $income22 ?>],
+                    ]);
+
+                    var options0 = {
+                    chart: {
+                        title: 'Event Overview',
+                        subtitle: 'Total Event, Total Fee, and Profit: 2018-2022',
+                        }
+                    };
+
+                    var chart0 = new google.charts.Bar(document.getElementById('columnchart_material0'));
+
+                    chart0.draw(data0, google.charts.Bar.convertOptions(options0));
+                    
+                    
+
+                    <?php
+                    }
+            ?>
+
+            
+            <?php
+            if($accType=='user'){
+                $data18['totalFee'] = 0;
+                $data19['totalFee'] = 0;
+                $data20['totalFee'] = 0;
+                $data21['totalFee'] = 0;
+                $data22['totalFee'] = 0;
+                
+                
+                $sqlfee =  "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2022";
+                $sql1fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2021";
+                $sql2fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2020";
+                $sql3fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2019";
+                $sql4fee = "SELECT sum(e.fee) as totalFee from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2018";
+                
+
+                $resultfee = mysqli_query($con, $sqlfee);
+                $result1fee = mysqli_query($con, $sql1fee);
+                $result2fee = mysqli_query($con, $sql2fee);
+                $result3fee = mysqli_query($con, $sql3fee);
+                $result4fee = mysqli_query($con, $sql4fee);
+                $data18 = mysqli_fetch_assoc($result4fee);
+                $data19 = mysqli_fetch_assoc($result3fee);
+                $data20 = mysqli_fetch_assoc($result2fee);
+                $data21 = mysqli_fetch_assoc($result1fee);
+                $data22 = mysqli_fetch_assoc($resultfee);
+                if ($resultfee && $result1fee && $result2fee && $result3fee && $result4fee) {
+                    if ($data18['totalFee'] == null) {
+                        $data18['totalFee'] = 0;
+                    } else {
+                        $data18['totalFee'] = $data18['totalFee'];
+                    }
+                    if ($data19['totalFee'] == null) {
+                        $data19['totalFee'] = 0;
+                    } else {
+                        $data19['totalFee'] = $data19['totalFee'];
+                    }
+                    if ($data20['totalFee'] == null) {
+                        $data20['totalFee'] = 0;
+                    } else {
+                        $data20['totalFee'] = $data20['totalFee'];
+                    }
+                    if ($data21['totalFee'] == null) {
+                        $data21['totalFee'] = 0;
+                    } else {
+                        $data21['totalFee'] = $data21['totalFee'];
+                    }
+                    if ($data22['totalFee'] == null) {
+                        $data22['totalFee'] = 0;
+                    } else {
+                        $data22['totalFee'] = $data22['totalFee'];
+                    }
+                    $fee18 = $data18['totalFee'];
+                    $fee19 = $data19['totalFee'];
+                    $fee20 = $data20['totalFee'];
+                    $fee21 = $data21['totalFee'];
+                    $fee22 = $data22['totalFee'];
+                }
+                ?>
+                var data1 = google.visualization.arrayToDataTable([
+                    ['Year', 'Total Fee'],
+                    ['2018', <?php echo $fee18 ?>],
+                    ['2019', <?php echo $fee19 ?>],
+                    ['2020', <?php echo $fee20 ?>],
+                    ['2021', <?php echo $fee21 ?>],
+                    ['2022', <?php echo $fee22 ?>]
+                ]);
+                var options1 = {
+                    title: 'Total Fee per Year (Estimation)',
+                    curveType: 'linear',
+                    legend: {
+                        position: 'bottom'
+                    }
+                };
+                var chart1 = new google.visualization.LineChart(document.getElementById('curve_chart1'));
+                chart1.draw(data1, options1);
+                <?php
+            }
+            
+            ?>
+
+            
+
+            //data 2
+            <?php
+            if ($accType == 'user') {
+
                 $sql =  "SELECT count(*) as total from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2022";
                 $sql1 = "SELECT count(*) as total from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2021";
                 $sql2 = "SELECT count(*) as total from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2020";
                 $sql3 = "SELECT count(*) as total from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2019";
                 $sql4 = "SELECT count(*) as total from event AS e, joinedevent AS j where e.eventID=j.eventID AND userID='$ID' AND YEAR(eventStartDate)=2018";
-            }
-
-            $result = mysqli_query($con, $sql);
-            $result1 = mysqli_query($con, $sql1);
-            $result2 = mysqli_query($con, $sql2);
-            $result3 = mysqli_query($con, $sql3);
-            $result4 = mysqli_query($con, $sql4);
-            $data18 = mysqli_fetch_assoc($result4);
-            $data19 = mysqli_fetch_assoc($result3);
-            $data20 = mysqli_fetch_assoc($result2);
-            $data21 = mysqli_fetch_assoc($result1);
-            $data22 = mysqli_fetch_assoc($result);
-            if ($result && $result1 && $result2 && $result3 && $result4) {
-                $event18 = $data18['total'];
-                $event19 = $data19['total'];
-                $event20 = $data20['total'];
-                $event21 = $data21['total'];
-                $event22 = $data22['total'];
-            }
-            ?>
-
-            var data2 = google.visualization.arrayToDataTable([
-                ['Year', 'Event'],
-                ['2018', <?php echo $event18 ?>],
-                ['2019', <?php echo $event19 ?>],
-                ['2020', <?php echo $event20 ?>],
-                ['2021', <?php echo $event21 ?>],
-                ['2022', <?php echo $event22 ?>]
-            ]);
             
-            var options2 = {
-                chart: {
-                    title: 'Events Per Year',
+
+                $result = mysqli_query($con, $sql);
+                $result1 = mysqli_query($con, $sql1);
+                $result2 = mysqli_query($con, $sql2);
+                $result3 = mysqli_query($con, $sql3);
+                $result4 = mysqli_query($con, $sql4);
+                $data18 = mysqli_fetch_assoc($result4);
+                $data19 = mysqli_fetch_assoc($result3);
+                $data20 = mysqli_fetch_assoc($result2);
+                $data21 = mysqli_fetch_assoc($result1);
+                $data22 = mysqli_fetch_assoc($result);
+                if ($result && $result1 && $result2 && $result3 && $result4) {
+                    $event18 = $data18['total'];
+                    $event19 = $data19['total'];
+                    $event20 = $data20['total'];
+                    $event21 = $data21['total'];
+                    $event22 = $data22['total'];
                 }
-            };
-            var chart2 = new google.charts.Bar(document.getElementById('columnchart_material'));
-            chart2.draw(data2, google.charts.Bar.convertOptions(options2));
+                ?>
+
+                var data2 = google.visualization.arrayToDataTable([
+                    ['Year', 'Event'],
+                    ['2018', <?php echo $event18 ?>],
+                    ['2019', <?php echo $event19 ?>],
+                    ['2020', <?php echo $event20 ?>],
+                    ['2021', <?php echo $event21 ?>],
+                    ['2022', <?php echo $event22 ?>]
+                ]);
+                
+                var options2 = {
+                    chart: {
+                        title: 'Events Per Year',
+                    }
+                };
+                var chart2 = new google.charts.Bar(document.getElementById('columnchart_material'));
+                chart2.draw(data2, google.charts.Bar.convertOptions(options2));
+        <?php
+            }
+           
+        ?>
         }
     </script>
 
@@ -282,18 +465,44 @@ include('connection.php');
                 <div class="row justify-content-center">
                     <div class="row mt-5">
                         <div class="col">
-                            <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
-                            <hr style="border:3px solid grey; border-radius:5px">
+                            <?php
+                            if($accType=='user'){
+                                ?>
+                                <div id="columnchart_material" style="width: 800px; height: 500px;"></div>
+                                <?php
+                            } else {
+                                ?>
+                                <div id="columnchart_material0" style="width: 800px; height: 500px;"></div>
+                                <?php
+                            }
+                            ?>
+                            <?php
+                            if($accType=='user'){
+                                ?>
+                                <hr style="border:3px solid grey; border-radius:5px">
+                                <?php
+                            } else {
+
+                            }
+                            ?>
+                            
                         </div>
                     </div>
-                   
-                    <div class="row">
-                        <div class="col">
-                            <div id="curve_chart1" style="width: 900px; height: 500px;"></div>
-
+                   <?php
+                   if($accType=='user'){
+                       ?>
+                        <div class="row">
+                            <div class="col">
+                                <div id="curve_chart1" style="width: 900px; height: 500px;"></div>
+                            </div>
                         </div>
-                    </div>
+                       <?php
+                   }
+                   ?>
 
+                    
+
+                    
                 </div>
             </div>
         </div>

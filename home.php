@@ -198,7 +198,7 @@ if(!$_SESSION['ID']){
           <table class="headerName">
             <tr>
               <td>
-                <h1>REGISTER NOW!</h1>
+                <h1 style="font-family: Georgia, serif;">REGISTER NOW!</h1>
               </td>
             </tr>
           </table>
