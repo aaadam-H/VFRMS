@@ -252,7 +252,7 @@ include('connection.php');
                     var options0 = {
                     chart: {
                         title: 'Event Overview',
-                        subtitle: 'Total Event, Total Fee, and Profit: 2018-2022',
+                        subtitle: 'Total Event, Total Participant, and Profit: 2018-2022',
                         }
                     };
 
