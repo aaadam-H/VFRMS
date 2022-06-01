@@ -213,7 +213,7 @@ if (mysqli_num_rows($result)>0){
                         <form action="" method="POST" enctype="multipart/form-data">
                             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                                 <img class="img-thumbnail" src="<?php echo $eventProof ?>" alt="N/A IF NONE UPLOADED" width="160" height="90" style="object-fit: contain;">
-                                <label for="uploadfile"><b>Upload Proof</b> </label>
+                                <label for="uploadfile"><b>Upload Running Proof</b> </label>
                                 <br>
                                 <input type="file" name="uploadfile" value="" />
                             </div>
