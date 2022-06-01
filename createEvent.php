@@ -223,7 +223,7 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-2"><label for="earlyFeeQt">Early Bird Capacity: </label></div>
-                                    <div class="col-md-10"><input type="number" class="form-control" placeholder="50" value="<?php echo $_POST['earlyFeeQt']; ?>" name="earlyFee" required></div>
+                                    <div class="col-md-10"><input type="number" class="form-control" placeholder="50" value="<?php echo $_POST['earlyFeeQt']; ?>" name="earlyFeeQt" required></div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-md-2"><label for="accBankName">Bank Name: </label></div>

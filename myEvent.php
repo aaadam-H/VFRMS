@@ -216,11 +216,15 @@ $accType = $_SESSION['accType'];
                                         <?php
                                         if($status=='completed'){ //disabled
                                             ?>
+                                            <td class="border-0"><button type="" class="btn btn-warning" disabled><a class="btn disabled" href="editEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Edit Event</a></button</td>
                                             <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+
                                             <?php
                                         } else{
                                             ?>
+                                            <td class="border-0"><button type="" class="btn btn-warning"><a class="btn" href="editEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Edit Event</a></button</td>
                                             <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+
                                             <?php
                                         }
                                         ?>
