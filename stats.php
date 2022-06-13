@@ -168,7 +168,7 @@ include('connection.php');
                     $income21['totalIncome'] = 0;
                     $income22['totalIncome'] = 0;
                     
-                    $sqlIncome = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2022 AND e.orgID='$ID'";
+                    $sqlIncome  = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2022 AND e.orgID='$ID'";
                     $sql1Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2021 AND e.orgID='$ID'";
                     $sql2Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2020 AND e.orgID='$ID'";
                     $sql3Income = "SELECT count(j.participantID) as totalPartcipant from joinedevent as j, event as e where j.eventID=e.eventID AND YEAR(e.eventStartDate)=2019 AND e.orgID='$ID'";
@@ -181,63 +181,61 @@ include('connection.php');
                     $result3Income = mysqli_query($con, $sql3Income);
                     $result4Income = mysqli_query($con, $sql4Income);
                     $income18 = mysqli_fetch_assoc($result4Income);
-                    //$income18 = $income18 * $fee18;
                     $income19 = mysqli_fetch_assoc($result3Income);
-                    //$income19 = $income19 * $fee19;
                     $income20 = mysqli_fetch_assoc($result2Income);
-                    //$income20 = $income20 * $fee20;
                     $income21 = mysqli_fetch_assoc($result1Income);
-                    //$income21 = $income21 * $fee21;
                     $income22 = mysqli_fetch_assoc($resultIncome);
-                    //$income22 = $income22 * $fee22;
                     if ($resultIncome && $result1Income && $result2Income && $result3Income && $result4Income) {
-                        if ($income18['totalPartcipant'] == null) {
+                        //2018
+                        if ($income18['totalPartcipant'] == null) { 
                             $income18['totalPartcipant'] = 0;
                             $totalPart18 = 0;
                         } else {
                             $totalPart18 = $income18['totalPartcipant'];
-                            $income18['totalPartcipant'] = $income18['totalPartcipant'] * $fee18;
+                            $income18['profit'] = $income18['totalPartcipant'] * $fee18;
                         }
-
-                        if ($income19['totalPartcipant'] == null) {
+                        //2019
+                        if ($income19['totalPartcipant'] == null) { 
                             $income19['totalPartcipant'] = 0;
                             $totalPart19 = 0;
                         } else {
                             $totalPart19 = $income19['totalPartcipant'];
-                            $income19['totalPartcipant'] = $income19['totalPartcipant'] * $fee19;
+                            $income19['profit'] = $income19['totalPartcipant'] * $fee19;
                         }
-
-                        if ($income20['totalPartcipant'] == null) {
+                        //2020
+                        if ($income20['totalPartcipant'] == null) { 
                             $income20['totalPartcipant'] = 0;
                             $totalPart20 = 0;
                         } else {
                             $totalPart20 = $income20['totalPartcipant'];
-                            $income20['totalPartcipant'] = $income20['totalPartcipant'] * $fee20;
+                            $income20['profit'] = $income20['totalPartcipant'] * $fee20;
                         }
-
-                        if ($income21['totalPartcipant'] == null) {
-                            $income21['totalPartcipant'] = 0;
-                            $totalPart21 = $income21['totalParticipant'];
+                        //2021
+                        if ($income21['totalPartcipant'] == null || $income21['totalPartcipant'] = 0) { 
+                            $income21['profit'] = 0;
+                            $totalPart21 = $income21['totalPartcipant'];
                         } else {
-                            $totalpart21 = $income21['totalPartcipant'] ;
-                            $income21['totalPartcipant'] = $income21['totalPartcipant'] * $fee21;
+                            $totalPart21 = $income21['totalPartcipant'];
+                            $totalParticipant21 = $income21['totalPartcipant'];
+                            $income21['profit'] = $income21['totalPartcipant'] * $fee21;
                         }
-
+                        //2022
                         if ($income22['totalPartcipant'] == null) {
                             $income22['totalPartcipant'] = 0;
                             $totalPart22 = 0; 
                         } else {
                             $totalPart22 = $income22['totalPartcipant'] ;
-                            $income22['totalPartcipant'] = $income22['totalPartcipant'] * $fee22;
+                            $income22['profit'] = $income22['totalPartcipant'] * $fee22;
                         }
 
-                        $income18 = $income18['totalPartcipant'];
-                        $income19 = $income19['totalPartcipant'];
-                        $income20 = $income20['totalPartcipant'];
-                        $income21 = $income21['totalPartcipant'];
-                        $income22 = $income22['totalPartcipant'];
+                        $income18 = $income18['profit'];
+                        $income19 = $income19['profit'];
+                        $income20 = $income20['profit'];
+                        $income21 = $income21['profit'];
+                        $income22 = $income22['profit'];
                     }
                 }
+              
                 ?>
 
                 var data0 = google.visualization.arrayToDataTable([
@@ -245,7 +243,7 @@ include('connection.php');
                     ['2018', <?php echo $event18 ?>, <?php echo $totalPart18 ?>, <?php echo $income18 ?>],
                     ['2019', <?php echo $event19 ?>, <?php echo $totalPart19 ?>, <?php echo $income19 ?>],
                     ['2020', <?php echo $event20 ?>, <?php echo $totalPart20 ?>, <?php echo $income20 ?>],
-                    ['2021', <?php echo $event21 ?>, <?php echo $fee21 ?>, <?php echo $income21 ?>],
+                    ['2021', <?php echo $event21 ?>, <?php echo $totalPart21 ?>, <?php echo $income21 ?>],
                     ['2022', <?php echo $event22 ?>, <?php echo $totalPart22 ?>, <?php echo $income22 ?>],
                     ]);
 

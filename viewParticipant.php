@@ -197,7 +197,7 @@ if (mysqli_num_rows($result) > 0) {
           <table class="table justify-content-center" border="1">
             <thead class="thead-dark">
               <tr class="">
-                <th style="text-align:center;">Proof</th>
+                <th style="text-align:center;">Running Proof</th>
                 <th class="">Participant Name</th>
                 <th class="">Date</th>
                 <th class="text-align-center" colspan="2">Registration Proof</th>
@@ -208,7 +208,7 @@ if (mysqli_num_rows($result) > 0) {
             </thead>
             <?php
             include("connection.php");
-            $query = "SELECT * FROM user,proof where user.userID = proof.userID AND proof.eventID='$eventID'";
+            $query = "SELECT * FROM user,proof where user.userID = proof.userID AND proof.eventID='1'";
             $result = mysqli_query($con, $query);
 
             if (mysqli_num_rows($result) > 0) {
