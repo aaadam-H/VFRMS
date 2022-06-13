@@ -12,7 +12,7 @@
         // $result1 = mysqli_query($con,$sql1);
 
         // if ($result && $result1){
-        if ($result && $result1){
+        if ($result){
             echo "<script>alert('Event Ended!'); window.location.href='myEvent.php'</script>";
         } else {
             echo "<script>alert('Woops! Something Wrong Went.')</script>";

@@ -145,7 +145,7 @@ if(!$_SESSION['ID']){
         </ol>
         <?php
 
-        $sql = "SELECT * from event WHERE status='ongoing' LIMIT 1";
+        $sql = "SELECT * from event WHERE status='ongoing' ORDER BY RAND() LIMIT 1";
         $result = mysqli_query($con, $sql);
         $row = mysqli_fetch_assoc($result);
         $eventName0 = $row['eventName'];
