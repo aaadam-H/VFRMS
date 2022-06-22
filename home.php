@@ -127,13 +127,13 @@ if(!$_SESSION['ID']){
 
   <main>
     <div class="text-center">
-      <div style="background: url(img/bannerVFRMS2.png); background-repeat:no-repeat;  background-size:cover; background-position: 50% 100%;" class="bg-cover py-5"></div>
+      <div id="headerImg" style="background: url(img/bannerVFRMS2.png); background-repeat:no-repeat;  background-size:cover; background-position: 50% 100%;" class="bg-cover py-5"></div>
 
     </div>
 
     <div class="site-section">
       <div class="text-center headline">
-        <h1 style="color: white; text-shadow: 2px 2px black;">EVENT</h1>
+        <!-- <h1 style="color: white; text-shadow: 2px 2px black; font-weight:bolder;">EVENT</h1> -->
       </div>
 
       <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -160,7 +160,7 @@ if(!$_SESSION['ID']){
           <div class="carousel-item active">
             <div class="overlay-image" style="background-image:url(<?php echo $eventImg0 ?>);"></div>
             <div class="containerCarousel">
-              <h1><a href="eventDetail.php?eventID=<?php echo $eventID0 ?>"><?php echo $eventName0 ?></a></h1>
+              <h1><a href="eventDetail.php?eventID=<?php echo $eventID0 ?>"><span style="font-family:fantasy"><?php echo $eventName0 ?></span></a></h1>
               <p><?php echo $eventDesc0 ?></p>
             </div>
           </div>
@@ -182,7 +182,7 @@ if(!$_SESSION['ID']){
               <div class="carousel-item">
                 <div class="overlay-image" style="background-image:url(<?php echo $eventImg ?>);"></div>
                 <div class="containerCarousel">
-                  <h1><a href="eventDetail.php?eventID=<?php echo $eventID ?>"><?php echo $eventName ?></a></h1>
+                  <h1><a href="eventDetail.php?eventID=<?php echo $eventID ?>"><span style="font-family:fantasy;"><?php echo $eventName ?></span></a></h1>
                   <p><?php echo $eventDesc ?></p>
                 </div>
               </div>
@@ -197,7 +197,7 @@ if(!$_SESSION['ID']){
         <div class="row justify-content-left">
           <table class="headerName">
             <tr>
-              <td>
+              <td class="pr-3 pl-3">
                 <h1 style="font-family: Georgia, serif;">REGISTER NOW!</h1>
               </td>
             </tr>

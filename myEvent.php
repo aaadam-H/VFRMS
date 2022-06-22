@@ -75,7 +75,7 @@ $accType = $_SESSION['accType'];
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
     <title>My Event - VFRMS</title>
-    
+
 </head>
 
 <body>
@@ -132,131 +132,133 @@ $accType = $_SESSION['accType'];
         </div>
 
         <div class="site-section">
-        <div class="container rounded bg-white mt-5">
-        
-        <div class="row">
-            <div class="row">&nbsp;</div>
-            
-            <div class="col-lg-6" style="float:none;margin:auto;">
-            </div>
-        </div>
-        
-        <div class="row">
-            <table class="table " border="2">
-                <thead class="thead-dark">
-                    <tr class="">
-                        <th class=""></th>
-                        <th class="">Event Name</th>
-                        <th class="">Start Date</th>
-                        <th class="">End Date</th>
-                        <th class="">Status</th>
-                        <th class=" border-0"></th>
-                        <th class=" border-0"></th>
-                        <th class=" border-0"></th>
+            <div class="container rounded bg-white mt-5">
 
-                    </tr>
-                </thead>
-                <?php
-                include("connection.php");
-                if($accType=='user'){
-                    $query = "SELECT * FROM joinedevent AS J, event as E where J.eventID=E.eventID and userID='$ID' ORDER BY e.status DESC";
-                } else{
-                    $query = "SELECT * FROM event where orgID='$ID' ORDER BY status DESC";
-                }
-                
-                $result = mysqli_query($con, $query);
+                <div class="row">
+                    <div class="row">&nbsp;</div>
 
-                if (mysqli_num_rows($result) > 0) {
-                    //output data of each row
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $eventName = $row["eventName"];
-                        $eventDesc = $row["eventDesc"];
-                        $eventSDate = $row["eventStartDate"];
-                        $eventEDate = $row["eventEndDate"];
-                        $eventStatus = $row["status"];
-                        $eventID = $row['eventID'];
-                        $eventImg = $row['eventImg'];
-                        $status = $row['status'];
+                    <div class="col-lg-6" style="float:none;margin:auto;">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <table class="table " border="2">
+                        <thead class="thead-dark">
+                            <tr class="">
+                                <th class=""></th>
+                                <th class="">Event Name</th>
+                                <th class="">Start Date</th>
+                                <th class="">End Date</th>
+                                <th class="">Status</th>
+                                <th class=" border-0"></th>
+                                <th class=" border-0"></th>
+                                <th class=" border-0"></th>
+
+                            </tr>
+                        </thead>
+                        <?php
+                        include("connection.php");
+                        if ($accType == 'user') {
+                            $query = "SELECT * FROM joinedevent AS J, event as E where J.eventID=E.eventID and userID='$ID' ORDER BY e.status DESC";
+                        } else {
+                            $query = "SELECT * FROM event where orgID='$ID' ORDER BY status DESC";
+                        }
+
+                        $result = mysqli_query($con, $query);
+
+                        if (mysqli_num_rows($result) > 0) {
+                            //output data of each row
+                            while ($row = mysqli_fetch_assoc($result)) {
+                                $eventName = $row["eventName"];
+                                $eventDesc = $row["eventDesc"];
+                                $eventSDate = $row["eventStartDate"];
+                                $eventEDate = $row["eventEndDate"];
+                                $eventStatus = $row["status"];
+                                $eventID = $row['eventID'];
+                                $eventImg = $row['eventImg'];
+                                $status = $row['status'];
 
 
-                ?>
-                        <tbody>
-                            <tr class="table-body-row">
-                                <td class="" style="text-align: center;"><img src="<?php echo $eventImg ?>" alt="" width="160" height="90" style="object-fit: contain; "></td>
-                                <td class=""><a href="eventDetail.php?eventID=<?php echo $eventID ?>" style="text-decoration:none; color:black;"><?php echo $eventName ?></a></td>
-                                
-                                <td class=""><?php echo $eventSDate ?></td>
-                                <td class=""><?php echo $eventEDate ?></td>
-                                <td class=""><strong><?php echo $status ?></strong> </td>
+                        ?>
+                                <tbody>
+                                    <tr class="table-body-row">
+                                        <td class="" style="text-align: center;"><img src="<?php echo $eventImg ?>" alt="" width="160" height="90" style="object-fit: contain; "></td>
+                                        <td class=""><a href="eventDetail.php?eventID=<?php echo $eventID ?>" style="text-decoration:none; color:black;"><?php echo $eventName ?></a></td>
 
-                            
-                                
-                                    <?php
-                                    if ($accType=='user'){
-                                        ?>
-                                        <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="eventDetail.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='Check Event Detail'>CHECK</a></button</td>
+                                        <td class=""><?php echo $eventSDate ?></td>
+                                        <td class=""><?php echo $eventEDate ?></td>
+                                        <td class=""><strong><?php echo $status ?></strong> </td>
+
+
+
                                         <?php
-                                        if ($status=='ongoing'){
-                                            ?>
+                                        if ($accType == 'user') {
+                                        ?>
+                                            <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="eventDetail.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='Check Event Detail'>CHECK</a></button< /td>
+                                                    <?php
+                                                    if ($status == 'ongoing') {
+                                                    ?>
                                             <td class="border-0"><button type="" class="btn btn-danger"><a class='btn' onClick="javascript: return confirm('Are you sure to deregister event <?php echo $eventName ?>');" href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="DEREGISTER"> DEREGISTER</a></button>
                                             <td class="border-0"><button type="" class="btn btn-success"><a class='btn' href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title="Manage Event Proof"> PROOF</a></button>
                                             <?php
-                                        } else {
+                                                    } else {
                                             ?>
                                             <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" onClick="javascript: return confirm('Are you sure to deregister event <?php echo $eventName ?>');" href="deregisterEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='DEREGISTER'>DEREGISTER</a></button>
                                             <td class="border-0"><button type="" class="btn btn-success" disabled><a class="btn disabled" href="proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' title='Manage event proof'>PROOF</a></button>
                                             <?php
-                                        }
-                                        ?>
-                                        
-                                        <?php
-                                    } else { //org
-                                        ?>
-                                        <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="viewParticipant.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>View Participant</a></button</td>
-                                        <?php
-                                        if($status=='completed'){ //disabled
+                                                    }
                                             ?>
-                                            <td class="border-0"><button type="" class="btn btn-warning" disabled><a class="btn disabled" href="editEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Edit Event</a></button</td>
-                                            <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
 
-                                            <?php
-                                        } else{
-                                            ?>
-                                            <td class="border-0"><button type="" class="btn btn-warning"><a class="btn" href="editEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Edit Event</a></button</td>
-                                            <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
-
-                                            <?php
-                                        }
+                                        <?php
+                                        } else { //org
                                         ?>
-                                        
-                                        
+                                            <td class="border-0"><button type="" class="btn btn-info"><a class="btn" href="viewParticipant.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>View Participant</a></button< /td>
+                                                    <?php
+                                                    if ($status == 'completed') { //disabled
+                                                    ?>
+                                            <td class="border-0"><button type="" class="btn btn-warning" disabled><a class="btn disabled" href="editEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Edit Event</a></button< /td>
+                                            <td class="border-0"><button type="" class="btn btn-danger" disabled><a class="btn disabled" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status ?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+
+                                        <?php
+                                                    } else {
+                                        ?>
+                                            <td class="border-0"><button type="" class="btn btn-warning"><a class="btn" href="editEvent.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>Edit Event</a></button< /td>
+                                            <td class="border-0"><button type="" class="btn btn-danger"><a class="btn" onClick="javascript: return confirm('Are you sure to end event <?php echo $eventName ?>');" href="eventEnd.php?eventID=<?php echo $eventID ?>&status=<?php echo $status ?>" style='color: black; text-decoration:none;'>End Event</a></button></td>
+
+                                        <?php
+                                                    }
+                                        ?>
+
+
                                     <?php
-                                    }
+                                        }
                                     ?>
-                                    
-                                </td>
-                               
 
+                                    </td>
+
+
+                                    </tr>
+
+                                </tbody>
+
+                            <?php
+
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan='7' class="text-center">0 results</td>
                             </tr>
+                        <?php
+                        }
+                        ?>
 
-                        </tbody>
+                    </table>
+                </div>
 
-                <?php
-
-                    }
-                } else {
-                    ?>
-                    <tr><td colspan='7' class="text-center">0 results</td></tr>
-                    <?php
-                }
-                ?>
-
-            </table>
+            </div>
         </div>
 
-    </div>
-        </div>
-        
         <?php
         include('footer.html');
         ?>

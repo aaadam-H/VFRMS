@@ -208,7 +208,7 @@ if (mysqli_num_rows($result) > 0) {
             </thead>
             <?php
             include("connection.php");
-            $query = "SELECT * FROM user,proof where user.userID = proof.userID AND proof.eventID='1'";
+            $query = "SELECT * FROM user,proof where user.userID = proof.userID AND proof.eventID='$eventID'";
             $result = mysqli_query($con, $query);
 
             if (mysqli_num_rows($result) > 0) {
