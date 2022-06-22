@@ -200,6 +200,7 @@ if (mysqli_num_rows($result) > 0) {
                 <th style="text-align:center;">Running Proof</th>
                 <th class="">Participant Name</th>
                 <th class="">Date</th>
+                <th class="">Fee to Paid</th>
                 <th class="text-align-center" colspan="2">Registration Proof</th>
 
 
@@ -207,8 +208,10 @@ if (mysqli_num_rows($result) > 0) {
               </tr>
             </thead>
             <?php
-            include("connection.php");
+            
             $query = "SELECT * FROM user,proof where user.userID = proof.userID AND proof.eventID='$eventID'";
+            //$query = "SELECT user.username,proof.eventProof,user.userID,proof.date,joinedevent.fee2Paid FROM user,proof,joinedevent where user.userID = proof.userID AND user.userID=joinedevent.userID AND proof.eventID='$eventID'";
+            //$query = "SELECT * FROM user,proof,joinedevent where user.userID = proof.userID AND user.userID=joinedevent.userID AND proof.eventID='$eventID'";
             $result = mysqli_query($con, $query);
 
             if (mysqli_num_rows($result) > 0) {
@@ -223,6 +226,15 @@ if (mysqli_num_rows($result) > 0) {
 
                 $userID = $row['userID'];
                 $date = $row['date'];
+                $feeSQL = "SELECT * from joinedevent WHERE userID='$userID' and eventID='$eventID'";
+                $feeResult = mysqli_query($con,$feeSQL);
+                if ($feeResult){
+                  $data = mysqli_fetch_assoc($feeResult);
+                  $fee2Paid = $data['fee2Paid'];
+                } else{
+                  $fee2Paid = 100;
+                }
+                
 
 
 
@@ -232,6 +244,7 @@ if (mysqli_num_rows($result) > 0) {
                     <td class="pb-2" style="text-align: center;"><a href="viewProof.php?userID=<?php echo $userID ?>&eventID=<?php echo $eventID ?>" target="_blank"><img src="<?php echo $proof ?>" alt="" width="160" height="90" style="object-fit: contain; "></a></td>
                     <td class=""><?php echo $pName ?></td>
                     <td class=""><?php echo $date ?></td>
+                    <td class=""><?php echo $fee2Paid ?></td>
 
                     <td class="border-0 d-flex justify-content-around">
                       <button type="" class="btn btn-info " title="View participant's registration proof"><a class="btn" href="viewProofReg.php?userID=<?php echo $userID ?>&eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;' target="_blank">View</a></button>
@@ -248,7 +261,7 @@ if (mysqli_num_rows($result) > 0) {
 
               }
             } else {
-              echo "<tr'><td colspan='4' class='text-center'>0 results</td></tr>";
+              echo "<tr'><td colspan='5' class='text-center'>0 results</td></tr>";
             }
             ?>
 

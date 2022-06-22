@@ -4,6 +4,7 @@ include('connection.php');
 
 $eventID = $_GET['eventID'];
 $ID = $_SESSION['ID'];
+$fee2Paid = $_GET['fee2Paid'];
 
 $eventIDJoin = 0;
 $sql = "SELECT * from joinedevent where userID='$ID' and eventID='$eventID'";
@@ -36,7 +37,7 @@ if ($eventIDJoin==$eventID){
         } else{
             
             
-            $sql = "INSERT INTO joinedEvent(eventID,userID,regProof) VALUES ('$eventID','$ID','$folder')";
+            $sql = "INSERT INTO joinedEvent(eventID,userID,regProof,fee2Paid) VALUES ('$eventID','$ID','$folder','$fee2Paid')";
             
             $result = mysqli_query($con,$sql);
             if ($result){

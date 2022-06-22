@@ -2,6 +2,7 @@
     session_start();
     include('connection.php');
     $eventID = $_GET['eventID'];
+    $fee2Paid = $_GET['fee2Paid'];
 
     $ID = $_SESSION['ID'];
     $eventIDJoin = 0;
@@ -18,7 +19,7 @@
     if ($eventIDJoin==$eventID){
         echo "<script>alert('You are already registered!');window.location.href='myEvent.php';</script>";
     } else {
-        $sql1 = "INSERT INTO joinedEvent(eventID,userID) VALUES ('$eventID','$ID')";
+        $sql1 = "INSERT INTO joinedEvent(eventID,userID,fee2Paid) VALUES ('$eventID','$ID')";
         $result1 = mysqli_query($con,$sql1);
         if ($result1){
             echo "<script>alert('Event Registration Successful!');window.location.href='myEvent.php';</script>";

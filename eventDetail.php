@@ -222,8 +222,10 @@ if (mysqli_num_rows($result1) > 0) {
                                 <?php 
                                 if($totalParticipant<$feeEarlyQt){
                                    echo "RM". $feeEarly;
+                                   $fee2Paid = $feeEarly;
                                 } else {
                                     echo "<strike>RM ". $feeEarly."</strike>";
+                                    $fee2Paid = $fee;
                                 }
                                 ?>
                                 
@@ -250,7 +252,7 @@ if (mysqli_num_rows($result1) > 0) {
                             <?php
                             if ($accType == 'user') {
                             ?>
-                                <button type="" class="btn btn-success mt-3"><a onClick="javascript: return confirm('Are you sure to register for event <?php echo $eventName ?>');" href="regEvent-proof.php?eventID=<?php echo $eventID ?>" style='color: black; text-decoration:none;'>REGISTER</a></button>
+                                <button type="" class="btn btn-success mt-3"><a onClick="javascript: return confirm('Are you sure to register for event <?php echo $eventName ?>');" href="regEvent-proof.php?eventID=<?php echo $eventID ?>&fee2Paid=<?php echo $fee2Paid ?>" style='color: black; text-decoration:none;'>REGISTER</a></button>
                             <?php
                             }
                             ?>
