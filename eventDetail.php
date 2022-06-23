@@ -154,10 +154,9 @@ if (mysqli_num_rows($result1) > 0) {
     </aside>
 
     <main>
-        <div class="text-center">
-            <div style="background: url(img/bannerVFRMS2.png); background-repeat:no-repeat;  background-size:cover; background-position: 50% 100%;" class="bg-cover py-5"></div>
-
-        </div>
+        <?php
+    include('header.php');
+    ?>
 
         <div class="site-section">
             <div class="container rounded bg-black mt-5 pb-5">

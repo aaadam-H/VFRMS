@@ -1,7 +1,7 @@
 <?php
 session_start();
 include("connection.php");
-include("header.php");
+
 
 
 
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
             $_SESSION['ID'] = $row['userID'];
             $_SESSION['profilePicDir'] = $row['profilePic'];
 
-            
+
             header("Location: home.php");
         } else {
             echo "<script>alert('Woops! Email or Password is Wrong.')</script>";
@@ -58,18 +58,12 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-
-
-    <style>
-        
-    </style>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/styleCss.css">
-    
-
     <title>Login - VFRMS </title>
+    <?php
+    include("header.php");
+    ?>
 </head>
 
 <body>
@@ -90,7 +84,7 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
     
+    <link  href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
 </body>
 
 </html>
-
