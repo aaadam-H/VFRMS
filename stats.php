@@ -1,9 +1,9 @@
-<!-- hidupkan! php takda -->
 <?php
 session_start();
+include('connection.php');
 $ID = $_SESSION['ID'];
 $accType = $_SESSION['accType'];
-include('connection.php');
+
 ?>
 <!doctype html>
 <html lang="en">
