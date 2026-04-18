@@ -1,5 +1,5 @@
 <?php
-    $con = mysqli_connect("localhost","root","","vfrms");
+    $con = mysqli_connect("localhost","root","","vfrms_laravel");
 
     if (!$con){
         echo("<script>alert('Connection Failed!')</script>");

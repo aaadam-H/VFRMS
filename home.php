@@ -1,10 +1,10 @@
 <?php
 session_start();
 include('connection.php');
-if($_SESSION['ID']==null){
-  echo "<script>alert('Please log in first!'); window.location.href='login.php';</script>";
-  // header('location:login.php');
-}
+// if($_SESSION['ID']==null){
+//   echo "<script>alert('Please log in first!'); window.location.href='login.php';</script>";
+//   // header('location:login.php');
+// }
 
 ?>
 <!doctype html>
