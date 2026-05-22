@@ -1,6 +1,6 @@
 # VFRMS
 
-**VFRMS** (presumably "Virtual Event Registration and Management System") is a web application designed to manage and facilitate event creation, registration, and participation. Built primarily using HTML, PHP, SCSS, and CSS, the system supports both event organizers and participants with dedicated functionality.
+**VFRMS** ( "Virtual Event Registration and Management System") is a web application designed to manage and facilitate event creation, registration, and participation. Built primarily using HTML, PHP, SCSS, and CSS, the system supports both event organizers and participants with dedicated functionality.
 
 ---
 
